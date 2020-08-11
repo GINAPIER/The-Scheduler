@@ -9,8 +9,18 @@ console.log(timeDate)
 var planner = $(".container")
 
 //create an array with numbers for working hours.
-var myHours = ["08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm"];
+var myHours = ["08:00 am", "09:00 am", "10:00 am", "11:00 am", "12:00 pm", "01:00 pm", "02:00 pm", "03:00 pm", "04:00 pm"];
 
+var displayHour = 0;
+var ampm = "";
+if (hour > 12) {
+    displayHour = hour - 12;
+    ampm = "pm";
+} else {
+    displayHour = hour;
+    ampm = "am";
+}
+displayHour = myHours
 console.log(myHours)
 //create a for loop
 for (var i = 0; i < 9; i++) {
@@ -47,7 +57,7 @@ for (var i = 0; i < 9; i++) {
     row.append(text)
     row.append(save)
 
-    
+
 
     //create on click event for save
     function renderSaves() {
@@ -56,24 +66,21 @@ for (var i = 0; i < 9; i++) {
 
         })
     }
-
-
 }
 
 
 //local storage
 
-var plans = [];
+var plans = $(this).attr("data-name");
 init
 function renderPlans() {
-  text.innerHTML ="";
-  text.textContent = plans.length;  
-  for (var i = 0; i <plans.length; i++){
-      var plans = plans[i];
-      plans.append(saveBtn)
-  }
-
-}   
+    text.innerHTML = "";
+    text.textContent = plans.length;
+    for (var i = 0; i < plans.length; i++) {
+        var plans = plans[i];
+        plans.append(".saveBtn")
+    }
+}
 
 function init() {
     var storedPlans = JSON.parse(localStorage.getItem("storedPlans"));
@@ -86,12 +93,19 @@ function init() {
 }
 
 function storedPlans() {
+    var inputText = document.getElementById(".text");
+    localStorage.setItem(".text", inputText.value);
+}
+
+
+
+function storedPlans() {
     localStorage.setItem("plans", JSON.stringify(plans));
 }
 
 $("plans").on("submit", function (event) {
     event.preventDefault();
-    var textContent = (".text-input").val().trim();
+    var content = (".text-input").val().trim();
 }
 )
 
@@ -102,17 +116,32 @@ if (element.matches("button")===true  ){
 var index = element.parentElement.attr("data-index")
 plans.splice(index, 1);
 }
+plans.push(plans);
 })
 
 
-$(".saveBtn").on("click", function () {
-     var plans =$(this).siblings(".description").children(".future").attr("id");
-     plans =$(this).siblings(".description").children(".future").val();
-     $("plans").submit()
- })
+// $(".save").on("click", function () {
+//      var plans =$(this).siblings(".description").children(".future").attr("id");
+//      plans =$(this).siblings(".description").children(".future").val();
+//      $("plans").submit()
+// //  })
+// storedPlans();
+
+
+
+$(".saveBtn").on("click", function (event) {
+    event.preventDefault();
+    var key = $(this).siblings(".text").text();
+    var value = $(this).prev().val();
+    localStorage.setItem(key, value);
+});
 storedPlans();
+
+
+
+
 // $(".saveBtn").on("click", function () {
-//     var text = document.querySelector("text")
-//     save.innerHTML = ""
-//     $("text").submit()
+//     var plans = document.querySelector("plans")
+//     plans.innerHTML = ("");
+//     $(".text").submit();
 // })
