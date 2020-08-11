@@ -120,13 +120,6 @@ plans.push(plans);
 })
 
 
-// $(".save").on("click", function () {
-//      var plans =$(this).siblings(".description").children(".future").attr("id");
-//      plans =$(this).siblings(".description").children(".future").val();
-//      $("plans").submit()
-// //  })
-// storedPlans();
-
 
 
 $(".saveBtn").on("click", function (event) {
@@ -139,9 +132,3 @@ storedPlans();
 
 
 
-
-// $(".saveBtn").on("click", function () {
-//     var plans = document.querySelector("plans")
-//     plans.innerHTML = ("");
-//     $(".text").submit();
-// })
